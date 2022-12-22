@@ -7,7 +7,7 @@
 Este projeto é uma versão de um outro projeto meu, neste novo projeto, utilizarei o Spring Boot 3 com Java 17.
 O intuito é aprender e descobrir as tecnologias mais atualizadas da nova versão do Spring, assim como features mais recentes do Java.
 
-Versão do projeto com Java 8 e Spring Boot 2
+Versão do projeto com Java 8 e Spring Boot 2 <br/>
 [<img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"/>](https://github.com/NathanSoa/supermarket-app)
 
 ## Requisitos
