@@ -2,22 +2,21 @@ package com.activity.newmarketapp.data.entities;
 
 import jakarta.persistence.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Product extends BaseEntity {
 
     private String name;
     private String description;
-    private Byte[] photo;
+    private String photo;
     private BigDecimal price;
+    private Boolean active;
 }
