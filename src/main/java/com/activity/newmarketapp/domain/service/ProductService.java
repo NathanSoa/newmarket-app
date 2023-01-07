@@ -31,8 +31,8 @@ public class ProductService {
                 .toList();
     }
 
-    public Product findById(Long id) {
-        return getProductOrThrowException(id);
+    public ProductResponse findById(Long id) {
+        return responseMapper.toDTO(getProductOrThrowException(id));
     }
 
     public ProductResponse save(ProductRequest productRequest) {
