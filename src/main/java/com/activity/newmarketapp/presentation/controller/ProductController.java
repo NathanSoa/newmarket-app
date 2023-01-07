@@ -1,5 +1,6 @@
 package com.activity.newmarketapp.presentation.controller;
 
+import com.activity.newmarketapp.data.repository.filter.ProductFilter;
 import com.activity.newmarketapp.domain.service.ProductService;
 import com.activity.newmarketapp.presentation.dtos.ProductRequest;
 import com.activity.newmarketapp.presentation.dtos.ProductResponse;
@@ -25,6 +26,11 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<List<ProductResponse>> findAll() {
         return ResponseEntity.ok(service.findAll());
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<ProductResponse>> findAllFiltered(ProductFilter filter) {
+        return ResponseEntity.ok(service.findAllFiltered(filter));
     }
 
     @GetMapping("/{id}")

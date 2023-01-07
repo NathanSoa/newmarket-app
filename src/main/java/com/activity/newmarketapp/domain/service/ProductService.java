@@ -2,6 +2,7 @@ package com.activity.newmarketapp.domain.service;
 
 import com.activity.newmarketapp.data.entities.Product;
 import com.activity.newmarketapp.data.repository.ProductRepository;
+import com.activity.newmarketapp.data.repository.filter.ProductFilter;
 import com.activity.newmarketapp.domain.mapper.ProductRequestMapper;
 import com.activity.newmarketapp.domain.mapper.ProductResponseMapper;
 import com.activity.newmarketapp.presentation.dtos.ProductRequest;
@@ -26,6 +27,14 @@ public class ProductService {
     public List<ProductResponse> findAll() {
         return repository
                 .findAll()
+                .stream()
+                .map(responseMapper::toDTO)
+                .toList();
+    }
+
+    public List<ProductResponse> findAllFiltered(ProductFilter filter) {
+        return repository
+                .findAllFiltered(filter)
                 .stream()
                 .map(responseMapper::toDTO)
                 .toList();
