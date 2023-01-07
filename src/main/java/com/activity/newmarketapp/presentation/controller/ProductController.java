@@ -36,4 +36,10 @@ public class ProductController {
     public ResponseEntity<ProductResponse> toggleActive(@PathVariable Long id) {
         return ResponseEntity.ok(service.toggleActive(id));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponse> fullyUpdate(@PathVariable Long id, @RequestBody @Valid ProductRequest request) {
+        return ResponseEntity.ok(service.fullyUpdate(request, id));
+    }
+
 }
