@@ -38,6 +38,13 @@ public class ProductService {
         return responseMapper.toDTO(savedProduct);
     }
 
+    public ProductResponse toggleActive(Long id) {
+        Product databaseProduct = getProductOrThrowException(id);
+        databaseProduct.setActive(!databaseProduct.getActive());
+        repository.save(databaseProduct);
+        return responseMapper.toDTO(databaseProduct);
+    }
+
     private Product getProductOrThrowException(Long id) {
         Optional<Product> productOptional = repository.findById(id);
         return productOptional.orElseThrow(() ->  new EmptyResultDataAccessException("Cannot find any product with id "  + id, 1));
