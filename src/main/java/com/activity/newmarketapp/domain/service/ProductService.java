@@ -31,8 +31,8 @@ public class ProductService {
                 .toList();
     }
 
-    public Product findById(Long id) {
-        return getProductOrThrowException(id);
+    public ProductResponse findById(Long id) {
+        return responseMapper.toDTO(getProductOrThrowException(id));
     }
 
     public ProductResponse save(ProductRequest productRequest) {
@@ -52,6 +52,12 @@ public class ProductService {
         product = requestMapper.toEntity(request);
         product.setId(id);
         return responseMapper.toDTO(repository.save(product));
+    }
+
+    public String deleteById(Long id) {
+        getProductOrThrowException(id);
+        repository.deleteById(id);
+        return "Product successfully deleted!";
     }
 
     private Product getProductOrThrowException(Long id) {
