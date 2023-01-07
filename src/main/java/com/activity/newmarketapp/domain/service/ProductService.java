@@ -7,9 +7,11 @@ import com.activity.newmarketapp.domain.mapper.ProductResponseMapper;
 import com.activity.newmarketapp.presentation.dtos.ProductRequest;
 import com.activity.newmarketapp.presentation.dtos.ProductResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -27,8 +29,17 @@ public class ProductService {
                 .toList();
     }
 
+    public Product findById(Long id) {
+        return getProductOrThrowException(id);
+    }
+
     public ProductResponse save(ProductRequest productRequest) {
         Product savedProduct = repository.save(requestMapper.toEntity(productRequest));
         return responseMapper.toDTO(savedProduct);
+    }
+
+    private Product getProductOrThrowException(Long id) {
+        Optional<Product> productOptional = repository.findById(id);
+        return productOptional.orElseThrow(() ->  new EmptyResultDataAccessException("Cannot find any product with id "  + id, 1));
     }
 }
