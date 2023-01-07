@@ -6,7 +6,9 @@ import com.activity.newmarketapp.domain.mapper.ProductRequestMapper;
 import com.activity.newmarketapp.domain.mapper.ProductResponseMapper;
 import com.activity.newmarketapp.presentation.dtos.ProductRequest;
 import com.activity.newmarketapp.presentation.dtos.ProductResponse;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,13 @@ public class ProductService {
         databaseProduct.setActive(!databaseProduct.getActive());
         repository.save(databaseProduct);
         return responseMapper.toDTO(databaseProduct);
+    }
+
+    public ProductResponse fullyUpdate(ProductRequest request, Long id) {
+        Product product = getProductOrThrowException(id);
+        product = requestMapper.toEntity(request);
+        product.setId(id);
+        return responseMapper.toDTO(repository.save(product));
     }
 
     private Product getProductOrThrowException(Long id) {
