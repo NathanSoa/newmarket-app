@@ -54,6 +54,12 @@ public class ProductService {
         return responseMapper.toDTO(repository.save(product));
     }
 
+    public String deleteById(Long id) {
+        getProductOrThrowException(id);
+        repository.deleteById(id);
+        return "Product successfully deleted!";
+    }
+
     private Product getProductOrThrowException(Long id) {
         Optional<Product> productOptional = repository.findById(id);
         return productOptional.orElseThrow(() ->  new EmptyResultDataAccessException("Cannot find any product with id "  + id, 1));
