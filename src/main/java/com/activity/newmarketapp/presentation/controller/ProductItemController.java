@@ -32,4 +32,10 @@ public class ProductItemController {
         String message = service.addProduct(principal.getName(), productItemRequest);
         return ResponseEntity.ok(message);
     }
+
+    @PatchMapping("/product")
+    public ResponseEntity<ProductItemResponse> changeQuantity(Principal principal, @Valid @RequestBody ProductItemRequest productItemRequest) {
+        ProductItemResponse productItemResponse = service.changeQuantity(principal.getName(), productItemRequest);
+        return ResponseEntity.ok(productItemResponse);
+    }
 }
