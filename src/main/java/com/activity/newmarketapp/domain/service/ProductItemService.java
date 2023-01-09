@@ -57,6 +57,24 @@ public class ProductItemService {
 
         return "Product " + productItem.getProduct().getName() + " was added to your list with " + productItem.getQuantity() + " units";
     }
+
+    public ProductItemResponse changeQuantity(String name, ProductItemRequest productItemRequest) {
+        User user = userRepository.findByUsername(name).get();
+        Optional<Product> optionalProduct = productRepository.findByName(productItemRequest.name());
+
+        if(optionalProduct.isEmpty())
+            throw new EmptyResultDataAccessException("There's no available product with name " + productItemRequest.name(), 1);
+
+        Optional<ProductItem> optionalProductItem = productItemRepository.findByProductAndUser(optionalProduct.get(), user);
+
+        if(optionalProductItem.isEmpty())
+            throw new EmptyResultDataAccessException("There's no product with name " + productItemRequest.name() + " in your list, you should add it first.", 1);
+
+        ProductItem databaseProductItem = optionalProductItem.get();
+        updateQuantity(databaseProductItem, productItemRequest.quantity());
+        return productItemResponseMapper.toDTO(databaseProductItem);
+    }
+
     private boolean itemAlreadyInList(User user, Product product) {
         return productItemRepository.findByProductAndUser(product, user).isPresent();
     }
