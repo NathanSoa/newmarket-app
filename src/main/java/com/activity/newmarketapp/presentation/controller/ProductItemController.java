@@ -44,4 +44,10 @@ public class ProductItemController {
         String message = service.deleteProduct(principal.getName(), id);
         return ResponseEntity.ok(message);
     }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteList(Principal principal) {
+        service.deleteList(principal.getName());
+        return ResponseEntity.ok(principal.getName() + ", your list was deleted!");
+    }
 }
