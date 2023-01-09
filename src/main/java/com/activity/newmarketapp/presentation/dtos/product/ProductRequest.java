@@ -1,4 +1,4 @@
-package com.activity.newmarketapp.presentation.dtos;
+package com.activity.newmarketapp.presentation.dtos.product;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

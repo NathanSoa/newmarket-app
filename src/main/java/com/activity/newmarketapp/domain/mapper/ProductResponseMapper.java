@@ -1,7 +1,7 @@
 package com.activity.newmarketapp.domain.mapper;
 
 import com.activity.newmarketapp.data.entities.Product;
-import com.activity.newmarketapp.presentation.dtos.ProductResponse;
+import com.activity.newmarketapp.presentation.dtos.product.ProductResponse;
 
 public class ProductResponseMapper implements Mapper<Product, ProductResponse> {
 

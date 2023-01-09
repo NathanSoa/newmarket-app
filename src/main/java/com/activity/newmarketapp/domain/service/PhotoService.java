@@ -4,7 +4,7 @@ import com.activity.newmarketapp.data.entities.Product;
 
 import com.activity.newmarketapp.data.repository.ProductRepository;
 import com.activity.newmarketapp.domain.mapper.ProductResponseMapper;
-import com.activity.newmarketapp.presentation.dtos.ProductResponse;
+import com.activity.newmarketapp.presentation.dtos.product.ProductResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
