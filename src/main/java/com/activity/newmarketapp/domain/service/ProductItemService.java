@@ -89,6 +89,13 @@ public class ProductItemService {
         return "Product " + optionalProduct.get().getName() + " was deleted from " + name + "'s list";
     }
 
+    @Transactional
+    public void deleteList(String name) {
+        User user = userRepository.findByUsername(name).get();
+
+        productItemRepository.deleteAllByUser(user);
+    }
+
     private boolean itemAlreadyInList(User user, Product product) {
         return productItemRepository.findByProductAndUser(product, user).isPresent();
     }
