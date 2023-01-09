@@ -32,4 +32,16 @@ public class ProductItemController {
         String message = service.addProduct(principal.getName(), productItemRequest);
         return ResponseEntity.ok(message);
     }
+
+    @PatchMapping("/product")
+    public ResponseEntity<ProductItemResponse> changeQuantity(Principal principal, @Valid @RequestBody ProductItemRequest productItemRequest) {
+        ProductItemResponse productItemResponse = service.changeQuantity(principal.getName(), productItemRequest);
+        return ResponseEntity.ok(productItemResponse);
+    }
+
+    @DeleteMapping("/product/{id}")
+    public ResponseEntity<String> deleteProduct(Principal principal, @PathVariable Long id) {
+        String message = service.deleteProduct(principal.getName(), id);
+        return ResponseEntity.ok(message);
+    }
 }
