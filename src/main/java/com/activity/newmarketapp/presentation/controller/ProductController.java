@@ -2,8 +2,8 @@ package com.activity.newmarketapp.presentation.controller;
 
 import com.activity.newmarketapp.data.repository.filter.ProductFilter;
 import com.activity.newmarketapp.domain.service.ProductService;
-import com.activity.newmarketapp.presentation.dtos.ProductRequest;
-import com.activity.newmarketapp.presentation.dtos.ProductResponse;
+import com.activity.newmarketapp.presentation.dtos.product.ProductRequest;
+import com.activity.newmarketapp.presentation.dtos.product.ProductResponse;
 
 import jakarta.validation.Valid;
 
