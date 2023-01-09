@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -73,6 +74,19 @@ public class ProductItemService {
         ProductItem databaseProductItem = optionalProductItem.get();
         updateQuantity(databaseProductItem, productItemRequest.quantity());
         return productItemResponseMapper.toDTO(databaseProductItem);
+    }
+
+    @Transactional
+    public String deleteProduct(String name, Long id) {
+        User user = userRepository.findByUsername(name).get();
+        Optional<Product> optionalProduct = productRepository.findById(id);
+
+        if(optionalProduct.isEmpty())
+            throw new EmptyResultDataAccessException("There's no product with name " + name + " in your list to be deleted", 1);
+
+
+        productItemRepository.deleteByProductAndUser(optionalProduct.get(), user);
+        return "Product " + optionalProduct.get().getName() + " was deleted from " + name + "'s list";
     }
 
     private boolean itemAlreadyInList(User user, Product product) {
