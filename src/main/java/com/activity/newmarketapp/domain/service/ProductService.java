@@ -5,8 +5,8 @@ import com.activity.newmarketapp.data.repository.ProductRepository;
 import com.activity.newmarketapp.data.repository.filter.ProductFilter;
 import com.activity.newmarketapp.domain.mapper.ProductRequestMapper;
 import com.activity.newmarketapp.domain.mapper.ProductResponseMapper;
-import com.activity.newmarketapp.presentation.dtos.ProductRequest;
-import com.activity.newmarketapp.presentation.dtos.ProductResponse;
+import com.activity.newmarketapp.presentation.dtos.product.ProductRequest;
+import com.activity.newmarketapp.presentation.dtos.product.ProductResponse;
 
 import lombok.AllArgsConstructor;
 
