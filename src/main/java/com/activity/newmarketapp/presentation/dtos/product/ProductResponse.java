@@ -1,6 +1,7 @@
 package com.activity.newmarketapp.presentation.dtos.product;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 public record ProductResponse (
         Long id,
@@ -8,6 +9,7 @@ public record ProductResponse (
         String description,
         String photo,
         BigDecimal price,
-        Boolean active
+        Boolean active,
+        Set<String> categories
 ) {
 }
