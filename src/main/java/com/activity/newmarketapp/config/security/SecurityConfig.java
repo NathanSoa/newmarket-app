@@ -29,10 +29,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain configureAPI(HttpSecurity http) throws Exception {
-        http.csrf()
-                .disable()
+        http.csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers("/login").permitAll())
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/product/**").hasAuthority(RoleName.ADMINISTRATOR.toString()))
+                .authorizeHttpRequests(authorize -> authorize.requestMatchers("/product/**", "/category/**").hasAuthority(RoleName.ADMINISTRATOR.toString()))
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(("/list/**")).hasAuthority(RoleName.USER.toString()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
@@ -43,8 +42,7 @@ public class SecurityConfig {
 
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder);
+        auth.userDetailsService(userDetailsService)
+            .passwordEncoder(passwordEncoder);
     }
 }

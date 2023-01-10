@@ -1,11 +1,8 @@
 package com.activity.newmarketapp.config.bootstrap;
 
 import com.activity.newmarketapp.data.entities.*;
-import com.activity.newmarketapp.data.repository.ProductItemRepository;
-import com.activity.newmarketapp.data.repository.ProductRepository;
-import com.activity.newmarketapp.data.repository.RoleRepository;
-import com.activity.newmarketapp.data.repository.UserRepository;
-import com.activity.newmarketapp.domain.service.ProductService;
+import com.activity.newmarketapp.data.repository.*;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -13,23 +10,18 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class DataLoader implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ProductRepository productRepository;
     private final ProductItemRepository productItemRepository;
+    private final CategoryRepository categoryRepository;
     private final PasswordEncoder encoder;
-
-    public DataLoader(UserRepository userRepository, RoleRepository roleRepository, ProductRepository productRepository, ProductItemRepository productItemRepository, PasswordEncoder encoder) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.productRepository = productRepository;
-        this.productItemRepository = productItemRepository;
-        this.encoder = encoder;
-    }
 
     @Override
     public void run(String... args) throws Exception {
@@ -64,11 +56,20 @@ public class DataLoader implements CommandLineRunner {
         admin.getRoles().add(adminRole);
         admin = userRepository.save(admin);
 
+        Category category = new Category();
+        category.setName("First Category");
+        category = categoryRepository.save(category);
+
+        Category category1 = new Category();
+        category1.setName("Second Category");
+        category1 = categoryRepository.save(category1);
+
         Product product = new Product();
         product.setName("First Product");
         product.setDescription("This is my new product by the way");
         product.setPrice(BigDecimal.valueOf(10L));
         product.setActive(false);
+        product.setCategories(new HashSet<>(List.of(category, category1)));
 
         productRepository.save(product);
 
@@ -77,6 +78,7 @@ public class DataLoader implements CommandLineRunner {
         product2.setDescription("This is my second product by the way");
         product2.setPrice(BigDecimal.valueOf(20L));
         product2.setActive(true);
+        product2.setCategories(new HashSet<>(List.of(category)));
 
         productRepository.save(product2);
 
