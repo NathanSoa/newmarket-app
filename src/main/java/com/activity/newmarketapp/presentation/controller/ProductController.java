@@ -57,4 +57,10 @@ public class ProductController {
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
         return ResponseEntity.ok(service.deleteById(id));
     }
+
+    @PostMapping("/{productId}/category/{categoryId}")
+    public ResponseEntity<ProductResponse> saveProductInCategory(@PathVariable Long productId, @PathVariable Long categoryId) {
+        ProductResponse productResponse = service.saveCategoryInProduct(productId, categoryId);
+        return ResponseEntity.status(HttpStatus.OK).body(productResponse);
+    }
 }
