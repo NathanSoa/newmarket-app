@@ -8,6 +8,7 @@ import com.activity.newmarketapp.data.repository.ProductRepository;
 import com.activity.newmarketapp.data.repository.filter.ProductFilter;
 import com.activity.newmarketapp.domain.mapper.ProductRequestMapper;
 import com.activity.newmarketapp.domain.mapper.ProductResponseMapper;
+import com.activity.newmarketapp.presentation.dtos.entity.DynamicPage;
 import com.activity.newmarketapp.presentation.dtos.product.ProductRequest;
 import com.activity.newmarketapp.presentation.dtos.product.ProductResponse;
 
@@ -15,6 +16,8 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +35,14 @@ public class ProductService {
     private final ProductRequestMapper requestMapper;
     private final ProductResponseMapper responseMapper;
 
-    public List<ProductResponse> findAll() {
-        return productRepository
-                .findAll()
-                .stream()
-                .map(responseMapper::toDTO)
-                .toList();
+    public DynamicPage<ProductResponse> findAll(Pageable pageable) {
+        Page<Product> page = productRepository.findAll(pageable);
+        DynamicPage<ProductResponse> dynamicPage = new DynamicPage<>();
+        dynamicPage.setPage((long) page.getNumber());
+        dynamicPage.setSize((long) page.getSize());
+        dynamicPage.setContent(page.getContent().stream().map(responseMapper::toDTO).toList());
+        dynamicPage.setSortField(page.getSort().toString());
+        return dynamicPage;
     }
 
     public List<ProductResponse> findAllFiltered(ProductFilter filter) {
